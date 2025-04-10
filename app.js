@@ -66,6 +66,9 @@ app.use((req, res, next) => {
 // API routes
 app.use('/api/finance', finance);
 app.use('/api', index);
+app.use('/', (req, res) => {
+  res.json({status: 'successful', message: 'Welcome to XYRA API', data: null });
+});
 
 // Error handling
 app.use(errorHandler);
