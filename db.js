@@ -9,7 +9,7 @@ const connectDB = async (retries = 3, delay = 5000) => {
       const url = `mongodb+srv://${config.db_username}:${config.db_password}@${config.db_host}/?retryWrites=true&w=majority&appName=Cluster0`;
       const conn = await mongoose.connect(url,
         {
-          serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+          serverSelectionTimeoutMS: 25000, // Timeout after 5s instead of 30s
         }
       );
 
