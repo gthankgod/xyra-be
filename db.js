@@ -32,7 +32,7 @@ const connectDB = async (retries = 3, delay = 5000) => {
     } catch (error) {
       if (i === retries - 1) {
         console.error(`Failed to connect to MongoDB after ${retries} attempts`);
-        throw new DatabaseError(error.message);
+        // throw new DatabaseError(error.message);
       }
       console.warn(`Connection attempt ${i + 1} failed. Retrying in ${delay/1000}s...`);
       await new Promise(resolve => setTimeout(resolve, delay));
