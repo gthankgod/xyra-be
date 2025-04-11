@@ -19,11 +19,19 @@ exports.submitAnswers = async (req, res) => {
           { new: true, upsert: true }
         );
 
-        if(user && user.aiResponse && !retry) {
+        if(user.retryCount > 3) {
+            return res.status(400).json({
+                status: 'error',
+                message: 'You have exceeded the maximum number of retries',
+                data: null
+            });
+        }
+
+        if(user && user.aiResponse.challenges.length && !retry) {
             return res.status(200).json({
                 status: 'successful',
                 message: 'Financial analysis already generated',
-                data: { aiResponse: JSON.parse(user.aiResponse), userId: user._id }
+                data: { aiResponse: user.aiResponse, userId: user._id }
             });
         }
     
@@ -57,7 +65,8 @@ exports.submitAnswers = async (req, res) => {
         `;
     
         const aiResponse = await getAIResponse(systemPrompt, answers, persona);
-        user.aiResponse = aiResponse;
+        user.aiResponse = JSON.parse(aiResponse);
+        user.retryCount = user.retryCount ? user.retryCount + 1 : 1;
         await user.save();
     
         return res.status(200).json({
