@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const config = require('./config');
-const { DatabaseError } = require('./utils/errors');
 
 // Database connection function with retry logic and proper error handling
 const connectDB = async (retries = 3, delay = 5000) => {
@@ -9,7 +8,7 @@ const connectDB = async (retries = 3, delay = 5000) => {
       const url = `mongodb+srv://${config.db_username}:${config.db_password}@${config.db_host}/?retryWrites=true&w=majority&appName=Cluster0`;
       const conn = await mongoose.connect(url,
         {
-          serverSelectionTimeoutMS: 25000, // Timeout after 5s instead of 30s
+          serverSelectionTimeoutMS: 40000, // Timeout after 40s instead of 30s
         }
       );
 
@@ -32,7 +31,6 @@ const connectDB = async (retries = 3, delay = 5000) => {
     } catch (error) {
       if (i === retries - 1) {
         console.error(`Failed to connect to MongoDB after ${retries} attempts`);
-        // throw new DatabaseError(error.message);
       }
       console.warn(`Connection attempt ${i + 1} failed. Retrying in ${delay/1000}s...`);
       await new Promise(resolve => setTimeout(resolve, delay));
