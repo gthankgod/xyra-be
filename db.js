@@ -15,7 +15,7 @@ const connectDB = async (retries = 3, delay = 5000) => {
 
       // Set up connection event handlers
       mongoose.connection.on('error', (err) => {
-        throw new DatabaseError(`MongoDB connection error: ${err.message}`);
+        console.error(`MongoDB connection error: ${err.message}`);
       });
 
       mongoose.connection.on('disconnected', () => {
