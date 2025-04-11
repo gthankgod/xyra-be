@@ -6,16 +6,16 @@ const fs = require('fs');
 
 exports.submitAnswers = async (req, res) => {
     try {
-        const { answers, persona, email, retry } = req.body;
+        const { answers, persona, email, nickname, retry } = req.body;
     
-        if (!answers || !persona || !email) {
+        if (!answers || !persona || !email || !nickname) {
           return res.status(400).json({ status: 'error', message: 'Missing fields', data: null });
         }
     
         // Save user if not exists
         let user = await User.findOneAndUpdate(
           { email },
-          { answers, persona },
+          { answers, persona, nickname },
           { new: true, upsert: true }
         );
 
