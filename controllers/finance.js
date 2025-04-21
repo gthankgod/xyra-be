@@ -3,6 +3,7 @@ const { createPDF } = require('../services/pdf');
 const User = require('../models/User');
 const path = require('path');
 const fs = require('fs');
+const sendmail = require('../services/sendmail');
 
 exports.submitAnswers = async (req, res) => {
     try {
@@ -68,10 +69,23 @@ exports.submitAnswers = async (req, res) => {
         user.aiResponse = JSON.parse(aiResponse);
         user.retryCount = user.retryCount ? user.retryCount + 1 : 1;
         await user.save();
+
+        // Send email with the AI response
+        let email_message = "";
+        try {
+            await sendmail.sendTransactionalMail({
+                to: email,
+                first_name: nickname,
+                aiResponse: user.aiResponse
+            });
+        } catch (error) {
+            email_message = error.message;
+        }
+       
     
         return res.status(200).json({
           status: 'successful',
-          message: 'Financial analysis generated successfully',
+          message: email_message || 'Financial analysis generated successfully',
           data: { aiResponse: JSON.parse(aiResponse), userId: user._id }
         });
     

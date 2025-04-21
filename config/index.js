@@ -12,4 +12,6 @@ module.exports = {
     db_password: process.env.DB_PASSWORD,
     mongo_uri: process.env.MONGO_URI,
     open_api_key: process.env.OPENAI_API_KEY,
+    mailer_send_api_key: process.env.MAILER_SEND_API_KEY,    
+    mailer_send_from_email: process.env.MAILER_SEND_FROM_EMAIL,
 }
