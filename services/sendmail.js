@@ -49,5 +49,6 @@ exports.sendTransactionalMail = async ({ first_name, aiResponse, to }) => {
   };
 
   const response = await axios.post('https://api.mailersend.com/v1/email', payload, { headers });
+  console.log("MailerSend response:", response.data); // Log the response from MailerSend
   return response.data;
 };
