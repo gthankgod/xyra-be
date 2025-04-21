@@ -2,7 +2,7 @@ const User = require('../models/User'); // Assuming you have a User model
 
 async function getUserByEmail(email) {
     try {
-        const user = await User.findOne({ email: 'gthankgod@gmail.com' });
+        const user = await User.findOne({ email });
         return {
             status: !!user,
             message: user ? 'User found' : 'User not found',
