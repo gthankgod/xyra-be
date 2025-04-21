@@ -5,6 +5,9 @@ const config = require('../config')
 const API_KEY = config.mailer_send_api_key;
 const FROM_EMAIL = config.mailer_send_from_email;
 
+console.log("FROM_EMAIL:", FROM_EMAIL); // should print an actual email
+console.log("API_KEY:", API_KEY ? 'Loaded ✅' : 'Missing ❌');
+
 exports.sendTransactionalMail = async ({ first_name, aiResponse, to }) => {
   let payload = {
     from: { email: FROM_EMAIL },
