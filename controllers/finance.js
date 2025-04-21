@@ -29,6 +29,18 @@ exports.submitAnswers = async (req, res) => {
         }
 
         if(user && user.aiResponse.challenges.length && !retry) {
+            console.log("Sending email to 111:", email);
+            let email_message = "";
+            try {
+                await sendmail.sendTransactionalMail({
+                    to: email,
+                    first_name: nickname,
+                    aiResponse: user.aiResponse
+                });
+            } catch (error) {
+                console.log(error);
+                email_message = error.message;
+            }
             return res.status(200).json({
                 status: 'successful',
                 message: 'Financial analysis already generated',
