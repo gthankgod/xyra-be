@@ -71,6 +71,7 @@ exports.submitAnswers = async (req, res) => {
         await user.save();
 
         // Send email with the AI response
+        console.log("Sending email to:", email);
         let email_message = "";
         try {
             await sendmail.sendTransactionalMail({
