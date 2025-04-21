@@ -79,6 +79,7 @@ exports.submitAnswers = async (req, res) => {
                 aiResponse: user.aiResponse
             });
         } catch (error) {
+            console.log(error);
             email_message = error.message;
         }
        

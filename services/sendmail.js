@@ -12,7 +12,7 @@ exports.sendTransactionalMail = async ({ first_name, aiResponse, to }) => {
     template_id: 'pr9084zjo9mgw63d',
   };
 
-  payload['personalization'] = [{ email: "gthankgod@gmail.com" }];
+  payload['personalization'] = [{ email: to }];
   payload['personalization'][0]['data'] = {};
 
   if(aiResponse){
