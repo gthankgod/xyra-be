@@ -12,7 +12,7 @@ const getOpenAIResponse = async (systemPrompt, answers, persona) => {
         model: 'gpt-4',
         messages: [
           { role: 'system', content: systemPrompt },
-          { role: 'user', content: `Persona: ${persona}. Answers: ${JSON.stringify(answers)}` }
+          { role: 'user', content: `Persona: Smart, Young and Witty. Answers: ${JSON.stringify(answers)}` }
         ]
       });
     

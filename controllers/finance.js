@@ -8,8 +8,7 @@ const sendmail = require('../services/sendmail');
 exports.submitAnswers = async (req, res) => {
     try {
         const { answers, persona, email, nickname, retry } = req.body;
-        console.log("email received", email);
-        if (!answers || !persona || !email || !nickname) {
+        if (!answers || !email || !nickname) {
           return res.status(400).json({ status: 'error', message: 'Missing fields', data: null });
         }
     
