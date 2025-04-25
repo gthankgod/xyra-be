@@ -8,7 +8,7 @@ const sendmail = require('../services/sendmail');
 exports.submitAnswers = async (req, res) => {
     try {
         const { answers, persona, email, nickname, retry } = req.body;
-    
+        console.log("email received", email);
         if (!answers || !persona || !email || !nickname) {
           return res.status(400).json({ status: 'error', message: 'Missing fields', data: null });
         }
@@ -29,8 +29,9 @@ exports.submitAnswers = async (req, res) => {
         }
 
         if(user && user.aiResponse.challenges.length && !retry) {
-            console.log("Sending email to 111:", email);
             let email_message = "";
+            console.log("email sent to - 1", email);
+
             try {
                 await sendmail.sendTransactionalMail({
                     to: email,
@@ -83,9 +84,9 @@ exports.submitAnswers = async (req, res) => {
         await user.save();
 
         // Send email with the AI response
-        console.log("Sending email to:", email);
         let email_message = "";
         try {
+            console.log("email sent to - 2", email);
             await sendmail.sendTransactionalMail({
                 to: email,
                 first_name: nickname,
