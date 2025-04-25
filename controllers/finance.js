@@ -28,26 +28,26 @@ exports.submitAnswers = async (req, res) => {
             });
         }
 
-        if(user && user.aiResponse.challenges.length && !retry) {
-            let email_message = "";
-            console.log("email sent to - 1", email);
+        // if(user && user.aiResponse.challenges.length && user.retryCount >= 3 && !retry) {
+        //     let email_message = "";
+        //     console.log("email sent to - 1", email);
 
-            try {
-                await sendmail.sendTransactionalMail({
-                    to: email,
-                    first_name: nickname,
-                    aiResponse: user.aiResponse
-                });
-            } catch (error) {
-                console.log(error);
-                email_message = error.message;
-            }
-            return res.status(200).json({
-                status: 'successful',
-                message: 'Financial analysis already generated',
-                data: { aiResponse: user.aiResponse, userId: user._id }
-            });
-        }
+        //     try {
+        //         await sendmail.sendTransactionalMail({
+        //             to: email,
+        //             first_name: nickname,
+        //             aiResponse: user.aiResponse
+        //         });
+        //     } catch (error) {
+        //         console.log(error);
+        //         email_message = error.message;
+        //     }
+        //     return res.status(200).json({
+        //         status: 'successful',
+        //         message: 'Financial analysis already generated',
+        //         data: { aiResponse: user.aiResponse, userId: user._id }
+        //     });
+        // }
     
         const systemPrompt = `
             You are a certified financial advisor and behavioral finance expert who understands the industry-standard framework of money personalities: The Saver, The Spender, The Builder, and The Giver. These personalities are based on research by financial psychologists such as Dr. Brad Klontz and are widely adopted across financial education platforms.
