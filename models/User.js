@@ -8,7 +8,7 @@ const QuestionSchema = new mongoose.Schema({
 
 const User = new mongoose.Schema({
   email: { type: String, required: true },
-  persona: { type: String, required: true },
+  persona: { type: String, required: false },
   nickname: { type: String, required: true },
   answers: [QuestionSchema],
   aiResponse: {
